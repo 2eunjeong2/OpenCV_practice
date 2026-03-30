@@ -5,7 +5,7 @@ import cv2 as cv
 img = cv.imread("my_id_card.png")
 
 # 원본 복사본 만들기 — 드래그 중 이전 사각형을 지우기 위해
-temp = img.copy()  # ✅ 임시 이미지 추가
+temp = img.copy()  # 임시 이미지 추가
 
 # 전역 변수: ix, iy (시작점), drawing (드래그 중 여부)
 drawing = False
@@ -21,7 +21,7 @@ ix, iy = -1, -1
     #     최종 사각형 그리기
     #     사각형 위에 "FACE" 텍스트 넣기
 def draw_circle(event, x, y, flags, param):
-    global ix, iy, drawing, mode, img, temp
+    global ix, iy, drawing, mode, img, temp, cropped
     font = cv.FONT_HERSHEY_SIMPLEX
 
     if event == cv.EVENT_LBUTTONDOWN:
@@ -54,6 +54,11 @@ def draw_circle(event, x, y, flags, param):
             
             cv.putText(img, 'FACE', (tx, cy), font, 1, (255, 255, 255), 1)
 
+            x1, y1 = min(ix, x), min(iy, y)  # 드래그 방향 상관없이 정렬
+            x2, y2 = max(ix, x), max(iy, y)
+
+            cropped = img[y1:y2, x1:x2]  # y: 100~300, x: 200~400
+
         else:
             cv.circle(img, (x, y), 5, (0, 0, 255), -1)
 
@@ -81,6 +86,7 @@ while(1):
         break
     elif key == ord('s'):
         cv.imwrite("my_id_card_final.png", img)
+        cv.imwrite("my_id_card_final_2.png", cropped)
         print("이미지가 저장되었습니다!")
         break
 
