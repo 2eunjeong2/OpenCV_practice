@@ -46,16 +46,17 @@ def draw_circle(event, x, y, flags, param):
             # 텍스트가 정확히 중앙에 오도록 텍스트 크기만큼 보정
             text_size = cv.getTextSize('FACE', font, 1, 2)[0]  # (너비, 높이) 반환
             
-            # 사각형 중앙 좌표
-            cx = (ix + x) // 2   # 시작x + 끝x 의 중간
-            cy = (iy + 20) + text_size[1]   # 시작y + 끝y 의 중간
+            # 사각형 중앙 좌표               
             
-            tx = cx - text_size[0] // 2
-            
-            cv.putText(img, 'FACE', (tx, cy), font, 1, (255, 255, 255), 1)
-
             x1, y1 = min(ix, x), min(iy, y)  # 드래그 방향 상관없이 정렬
             x2, y2 = max(ix, x), max(iy, y)
+
+            tx = (x1 + x2) // 2 - text_size[0] // 2
+            ty = (y1) + text_size[1] + 20
+
+            cv.putText(img, 'FACE', (tx, ty), font, 1, (255, 255, 255), 1)
+
+            
 
             cropped = img[y1:y2, x1:x2]  # y: 100~300, x: 200~400
 
