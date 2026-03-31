@@ -26,8 +26,6 @@ img = cv.medianBlur(img,5)
 def nothing(x):
     pass
 
-cap = cv.VideoCapture(0)
-
 # 창 생성 (namedWindow)
 
 cv.namedWindow('trackbar')
@@ -41,9 +39,6 @@ cv.createTrackbar('mode', 'trackbar', 0, 1, nothing)
 
 # 반복문
 while(1):
-    _, frame = cap.read()
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-
     # 트랙바 값 읽기 (getTrackbarPos)
     threshold = cv.getTrackbarPos('threshold', 'trackbar')
     mode = cv.getTrackbarPos('mode', 'trackbar')
@@ -51,11 +46,11 @@ while(1):
     # 이진화 적용
     # — mode가 0이면 THRESH_BINARY, 1이면 THRESH_BINARY_INV
     thresh_mode = cv.THRESH_BINARY if mode == 0 else cv.THRESH_BINARY_INV
-    _, result = cv.threshold(gray, threshold, 255, thresh_mode)
+    _, result = cv.threshold(img, threshold, 255, thresh_mode)
 
     # 원본 | 이진화 결과 나란히 표시
     # — np.hstack([img, thresh]) 또는 np.hstack([img, result])
-    combined = np.hstack([gray, result])
+    combined = np.hstack([img, result])
 
     # 현재 임계값을 화면에 표시
     # — cv.putText(result, f'Thresh: {value}', ...)
