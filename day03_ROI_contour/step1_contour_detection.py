@@ -2,14 +2,14 @@ import cv2 as cv
 import numpy as np
 
 # 이미지 로드 (그레이스케일)
-img = cv.imread('./img/bad_rect.png', cv.IMREAD_GRAYSCALE)
+img = cv.imread('./img/aircraft.jpg', cv.IMREAD_GRAYSCALE)
 
 if img is None:
     print("이미지를 불러올 수 없어요!")
     exit()
 
 # 이진화
-_, binary = cv.threshold(img, 127, 255, cv.THRESH_BINARY)
+_, binary = cv.threshold(img, 127, 255, cv.THRESH_BINARY_INV)
 
 # 컨투어 검출
 contours, hierarchy = cv.findContours(binary, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
