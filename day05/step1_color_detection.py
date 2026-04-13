@@ -13,7 +13,7 @@ if not cap.isOpened():
     exit()
 
 # 감지할 색상의 HSV 범위 설정 - 민트색
-lower_color = np.array([50,0,0])
+lower_color = np.array([50,0,150])
 upper_color = np.array([100,255,255])
 
 # 감지 면적 임계값 설정
@@ -59,11 +59,13 @@ while True:
     cv.putText(frame, status, (30, 50), cv.FONT_HERSHEY_SIMPLEX, 1.2, color, 3)
     cv.putText(frame, f"Area: {int(area)}", (30, 100), cv.FONT_HERSHEY_SIMPLEX, 1.2, color, 3)
 
+    print(f"Area: {int(area)}")
+    
+#   'q' 키 입력 시 루프 종료
     cv.imshow('frame', frame)
     cv.imshow('mask', mask)
     # cv.imshow('res', res)
 
-#   'q' 키 입력 시 루프 종료
     key = cv.waitKey(1)
 
     if key == ord('q'):

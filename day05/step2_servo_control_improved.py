@@ -16,7 +16,7 @@ except Exception as e:
     arduino = None
 
 # 웹캠을 열기
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture(0, cv.CAP_DSHOW)
 MIN_AREA = 5000
 
 if not cap.isOpened():

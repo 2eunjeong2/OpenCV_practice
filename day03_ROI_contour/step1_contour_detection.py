@@ -26,13 +26,13 @@ filtered_count = 0               # 필터링된 컨투어 개수
 
 for cnt in contours:
     area = cv.contourArea(cnt)
-    if 100 < area < 5000:
+    if 100 < area < 100000:
         cv.drawContours(img_color, [cnt], 0, (255, 0, 0), 2)
         filtered_count += 1
 
 noise_count = total_count - filtered_count  # 제외된 노이즈 개수
 
-# ✅ 과제 답안 출력
+# 과제 답안 출력
 print("=" * 40)
 print(f"전체 컨투어 개수       : {total_count}")
 print(f"필터링된 컨투어 개수   : {filtered_count}")
